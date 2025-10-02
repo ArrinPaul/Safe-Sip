@@ -43,6 +43,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@clerk/clerk-sdk-node": "^5.0.0",
     "@prisma/client": "^5.22.0",
     "axios": "^1.6.2",
     "bcryptjs": "^2.4.3",

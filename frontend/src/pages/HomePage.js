@@ -19,14 +19,14 @@ import {
   Star,
   ChevronDown
 } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+import { useUser } from '@clerk/clerk-react';
 import { useData } from '../context/DataContext';
 
 const HomePage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [stats, setStats] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { isAuthenticated, user } = useAuth();
+  const { isSignedIn, user } = useUser();
   const { fetchRealTimeData, villageStats, caseStats } = useData();
   const navigate = useNavigate();
 
@@ -165,7 +165,7 @@ const HomePage = () => {
         {/* Animated Background */}
         <div className="absolute inset-0 z-0">
           {/* Gradient Background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900" />
+          <div className="absolute inset-0 bg-gradient-to-br from-white via-indigo-50 to-blue-50" />
           
           {/* Animated Mesh Background */}
           <motion.div 
@@ -241,12 +241,12 @@ const HomePage = () => {
               }}
               className="relative"
             >
-              <Droplets className="h-16 w-16 md:h-20 md:w-20 text-blue-400" />
-              <div className="absolute inset-0 bg-blue-400/30 rounded-full blur-lg animate-pulse" />
+              <Droplets className="h-16 w-16 md:h-20 md:w-20 text-primary-500" />
+              <div className="absolute inset-0 bg-primary-400/30 rounded-full blur-lg animate-pulse" />
             </motion.div>
             <div className="text-left">
               <motion.h1 
-                className="text-5xl md:text-7xl lg:text-8xl font-bold gradient-text"
+                className="text-5xl md:text-7xl lg:text-8xl font-bold text-slate-900"
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
@@ -254,7 +254,7 @@ const HomePage = () => {
                 SafeSip
               </motion.h1>
               <motion.p 
-                className="text-blue-300 text-lg md:text-xl font-medium"
+                className="text-slate-600 text-lg md:text-xl font-medium"
                 initial={{ opacity: 0, x: -50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
@@ -271,11 +271,11 @@ const HomePage = () => {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="space-y-6 mb-12"
           >
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight">
               Preventing Waterborne Diseases with
               <span className="block gradient-text">AI-Powered Intelligence</span>
             </h2>
-            <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
               Advanced machine learning and real-time monitoring to predict, prevent, and respond to 
               waterborne disease outbreaks across rural communities.
             </p>
@@ -301,11 +301,11 @@ const HomePage = () => {
                 transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
                 className="glass-card p-4 md:p-6 hover:scale-105 transition-all duration-300"
               >
-                <stat.icon className="h-8 w-8 text-blue-400 mx-auto mb-3" />
-                <div className="text-2xl md:text-3xl font-bold text-white mb-1">
+                <stat.icon className="h-8 w-8 text-primary-500 mx-auto mb-3" />
+                <div className="text-2xl md:text-3xl font-bold text-slate-900 mb-1">
                   {stat.value}
                 </div>
-                <div className="text-sm text-gray-400 font-medium">
+                <div className="text-sm text-slate-600 font-medium">
                   {stat.label}
                 </div>
               </motion.div>
@@ -319,14 +319,14 @@ const HomePage = () => {
             transition={{ duration: 0.8, delay: 1.6 }}
             className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6"
           >
-            {isAuthenticated ? (
+            {isSignedIn ? (
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <Link
                   to="/dashboard"
-                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 group text-lg"
+                  className="inline-flex items-center px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 group text-lg"
                 >
                   Go to Dashboard
                   <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -339,8 +339,8 @@ const HomePage = () => {
                   whileTap={{ scale: 0.95 }}
                 >
                   <Link
-                    to="/login"
-                    className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 group text-lg"
+                    to="/sign-in"
+                  className="inline-flex items-center px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 group text-lg"
                   >
                     Get Started Free
                     <ArrowRight className="ml-3 h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -350,7 +350,7 @@ const HomePage = () => {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <button className="inline-flex items-center px-8 py-4 glass border border-white/20 text-white font-semibold rounded-xl hover:bg-white/20 transition-all duration-300 group text-lg">
+                  <button className="inline-flex items-center px-8 py-4 bg-white border border-gray-200 text-slate-700 font-semibold rounded-xl hover:bg-gray-50 transition-all duration-300 group text-lg">
                     <Play className="mr-3 h-5 w-5 group-hover:scale-110 transition-transform" />
                     Watch Demo
                   </button>
@@ -366,12 +366,12 @@ const HomePage = () => {
             transition={{ duration: 0.8, delay: 1.8 }}
             className="mt-12 flex flex-col items-center space-y-4"
           >
-            <p className="text-gray-400 text-sm font-medium">Trusted by healthcare professionals nationwide</p>
+            <p className="text-slate-600 text-sm font-medium">Trusted by healthcare professionals nationwide</p>
             <div className="flex items-center space-x-6">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
               ))}
-              <span className="text-white font-semibold ml-2">4.9/5 Rating</span>
+              <span className="text-slate-700 font-semibold ml-2">4.9/5 Rating</span>
             </div>
           </motion.div>
 
@@ -395,7 +395,7 @@ const HomePage = () => {
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white"
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-slate-600"
         >
           <ChevronDown className="h-8 w-8" />
         </motion.div>
@@ -555,7 +555,7 @@ const HomePage = () => {
               Join thousands of healthcare professionals using SafeSip to prevent waterborne diseases and save lives.
             </p>
             
-            {isAuthenticated ? (
+            {isSignedIn ? (
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   to="/dashboard"
@@ -564,9 +564,9 @@ const HomePage = () => {
                   Go to Dashboard
                 </Link>
                 <Link
-                  to={user?.role === 'ASHA_WORKER' ? '/asha-dashboard' : 
-                       user?.role === 'HEALTH_OFFICIAL' ? '/health-dashboard' :
-                       user?.role === 'PHC_STAFF' ? '/phc-dashboard' : '/dashboard'}
+                  to={user?.publicMetadata?.role === 'ASHA_WORKER' ? '/asha-dashboard' : 
+                       user?.publicMetadata?.role === 'HEALTH_OFFICIAL' ? '/health-dashboard' :
+                       user?.publicMetadata?.role === 'PHC_STAFF' ? '/phc-dashboard' : '/dashboard'}
                   className="btn-secondary text-lg px-8 py-4"
                 >
                   My Workspace
@@ -575,7 +575,7 @@ const HomePage = () => {
             ) : (
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  to="/login"
+                  to="/sign-in"
                   className="btn-primary text-lg px-8 py-4"
                 >
                   Get Started Now

@@ -15,18 +15,19 @@ import {
   Shield,
   Bell
 } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+import { useUser, useClerk } from '@clerk/clerk-react';
 import { cn } from '../utils/helpers';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
-  const { user, logout, isAuthenticated } = useAuth();
+  const { user, isSignedIn } = useUser();
+  const { signOut } = useClerk();
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await signOut();
     navigate('/');
   };
 
@@ -45,7 +46,7 @@ const Navbar = () => {
   };
 
   const filteredNavItems = navItems.filter(item => 
-    !item.requireAuth || isAuthenticated
+    !item.requireAuth || isSignedIn
   );
 
   return (
@@ -110,25 +111,25 @@ const Navbar = () => {
             ))}
             
             {/* Role-based dashboard link */}
-            {isAuthenticated && user?.role && roleBasedLinks[user.role] && (
+            {isSignedIn && user?.publicMetadata?.role && roleBasedLinks[user.publicMetadata.role] && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.5 }}
               >
                 <Link
-                  to={roleBasedLinks[user.role].href}
+                  to={roleBasedLinks[user.publicMetadata.role].href}
                   className={cn(
                     "relative flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 group",
                     "bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30",
                     "hover:from-blue-600/30 hover:to-purple-600/30 hover:scale-105",
-                    location.pathname === roleBasedLinks[user.role].href && "ring-2 ring-blue-400/50"
+                    location.pathname === roleBasedLinks[user.publicMetadata.role].href && "ring-2 ring-blue-400/50"
                   )}
                 >
-                  {React.createElement(roleBasedLinks[user.role].icon, { 
+                  {React.createElement(roleBasedLinks[user.publicMetadata.role].icon, { 
                     className: "h-4 w-4 group-hover:scale-110 transition-transform text-blue-400" 
                   })}
-                  <span className="font-medium text-blue-300">{roleBasedLinks[user.role].name}</span>
+                  <span className="font-medium text-blue-300">{roleBasedLinks[user.publicMetadata.role].name}</span>
                 </Link>
               </motion.div>
             )}
@@ -136,7 +137,7 @@ const Navbar = () => {
 
           {/* Right side */}
           <div className="hidden md:flex items-center space-x-3">
-            {isAuthenticated ? (
+            {isSignedIn ? (
               <>
                 {/* Notifications */}
                 <motion.div 
@@ -228,8 +229,8 @@ const Navbar = () => {
                   transition={{ delay: 0.3 }}
                 >
                   <div className="text-right">
-                    <p className="text-sm font-medium text-white">{user.name}</p>
-                    <p className="text-xs text-blue-400">{user.role?.replace('_', ' ')}</p>
+                    <p className="text-sm font-medium text-white">{user?.fullName || user?.primaryEmailAddress?.emailAddress}</p>
+                    <p className="text-xs text-blue-400">{user?.publicMetadata?.role?.replace('_', ' ')}</p>
                   </div>
                   <motion.div 
                     className="relative"
@@ -238,7 +239,7 @@ const Navbar = () => {
                   >
                     <div className="h-10 w-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center ring-2 ring-blue-400/30 hover:ring-blue-400/50 transition-all">
                       <span className="text-white text-sm font-semibold">
-                        {user.name?.charAt(0)}
+                        {(user?.fullName || user?.primaryEmailAddress?.emailAddress || 'U').charAt(0)}
                       </span>
                     </div>
                     <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-400 rounded-full border-2 border-gray-900" />
@@ -261,7 +262,7 @@ const Navbar = () => {
                 transition={{ delay: 0.2 }}
               >
                 <Link
-                  to="/login"
+                  to="/sign-in"
                   className="px-6 py-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
                 >
                   Login
@@ -329,42 +330,42 @@ const Navbar = () => {
               ))}
               
               {/* Role-based dashboard link for mobile */}
-              {isAuthenticated && user?.role && roleBasedLinks[user.role] && (
+              {isSignedIn && user?.publicMetadata?.role && roleBasedLinks[user.publicMetadata.role] && (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.6 }}
                 >
                   <Link
-                    to={roleBasedLinks[user.role].href}
+                    to={roleBasedLinks[user.publicMetadata.role].href}
                     onClick={() => setIsOpen(false)}
                     className={cn(
                       "flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-300 group",
                       "bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30",
                       "hover:from-blue-600/30 hover:to-purple-600/30",
-                      location.pathname === roleBasedLinks[user.role].href && "ring-2 ring-blue-400/50"
+                      location.pathname === roleBasedLinks[user.publicMetadata.role].href && "ring-2 ring-blue-400/50"
                     )}
                   >
-                    {React.createElement(roleBasedLinks[user.role].icon, { 
+                    {React.createElement(roleBasedLinks[user.publicMetadata.role].icon, { 
                       className: "h-5 w-5 text-blue-400 group-hover:scale-110 transition-transform" 
                     })}
-                    <span className="font-medium text-blue-300">{roleBasedLinks[user.role].name}</span>
+                    <span className="font-medium text-blue-300">{roleBasedLinks[user.publicMetadata.role].name}</span>
                     <div className="ml-auto w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
                   </Link>
                 </motion.div>
               )}
               
-              {isAuthenticated ? (
+              {isSignedIn ? (
                 <div className="pt-4 border-t border-white/20">
                   <div className="flex items-center space-x-3 px-4 py-3">
                     <div className="h-10 w-10 bg-gradient-to-r from-primary-500 to-success-500 rounded-full flex items-center justify-center">
                       <span className="text-white font-semibold">
-                        {user.name?.charAt(0)}
+                        {(user?.fullName || user?.primaryEmailAddress?.emailAddress || 'U').charAt(0)}
                       </span>
                     </div>
                     <div>
-                      <p className="font-medium">{user.name}</p>
-                      <p className="text-sm text-white/60">{user.role?.replace('_', ' ')}</p>
+                      <p className="font-medium">{user?.fullName || user?.primaryEmailAddress?.emailAddress}</p>
+                      <p className="text-sm text-white/60">{user?.publicMetadata?.role?.replace('_', ' ')}</p>
                     </div>
                   </div>
                   <button
@@ -378,7 +379,7 @@ const Navbar = () => {
               ) : (
                 <div className="pt-4 border-t border-white/20">
                   <Link
-                    to="/login"
+                    to="/sign-in"
                     onClick={() => setIsOpen(false)}
                     className="btn-primary w-full text-center"
                   >

@@ -124,7 +124,16 @@ npm install
 cd frontend && npm install
 ```
 
-### 5. Development Server
+### 5. Authentication Setup (Clerk)
+```
+# Backend (root .env)
+CLERK_SECRET_KEY=sk_test_or_live
+
+# Frontend (frontend/.env)
+REACT_APP_CLERK_PUBLISHABLE_KEY=pk_test_or_live
+```
+
+### 6. Development Server
 ```bash
 # Start development servers
 npm run dev        # Backend on port 3001

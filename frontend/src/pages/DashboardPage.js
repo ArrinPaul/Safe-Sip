@@ -19,18 +19,18 @@ import {
   Download,
   ChevronRight
 } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+import { useUser } from '@clerk/clerk-react';
 import { useData } from '../context/DataContext';
 import { Card, Button, Badge, Progress, Skeleton } from '../components/ui';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 const DashboardPage = () => {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isSignedIn } = useUser();
   const { dashboardData, loading } = useData();
   const [selectedTimeFrame, setSelectedTimeFrame] = useState('7d');
   const [refreshing, setRefreshing] = useState(false);
 
-  if (!isAuthenticated) {
+  if (!isSignedIn) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <LoadingSpinner size="lg" text="Please log in to access the dashboard" />
@@ -148,22 +148,22 @@ const DashboardPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-8"
+          className="mb-10"
         >
           <div className="flex flex-col md:flex-row md:items-center md:justify-between">
             <div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">
-                Welcome back, {user?.name || 'User'}
+              <h1 className="text-4xl font-bold text-slate-900 mb-2">
+                Welcome back, {user?.fullName || user?.primaryEmailAddress?.emailAddress || 'User'}
               </h1>
-              <p className="text-gray-600 text-lg">
-                Here's what's happening with SafeSip today
+              <p className="text-slate-600 text-lg">
+                Today’s snapshot of your regions and health operations
               </p>
             </div>
             
@@ -171,7 +171,7 @@ const DashboardPage = () => {
               <select
                 value={selectedTimeFrame}
                 onChange={(e) => setSelectedTimeFrame(e.target.value)}
-                className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent bg-white text-slate-700"
               >
                 {timeFrameOptions.map(option => (
                   <option key={option.value} value={option.value}>
@@ -185,7 +185,7 @@ const DashboardPage = () => {
                 variant="outline"
                 size="md"
                 disabled={refreshing}
-                className="flex items-center space-x-2"
+                className="flex items-center space-x-2 border-gray-200"
               >
                 <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin' : ''}`} />
                 <span>Refresh</span>
@@ -194,7 +194,7 @@ const DashboardPage = () => {
           </div>
         </motion.div>
 
-        {/* Stats Grid */}
+        {/* KPI Cards */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -210,7 +210,7 @@ const DashboardPage = () => {
               whileHover={{ scale: 1.02, y: -5 }}
               className="relative overflow-hidden"
             >
-              <Card variant="glass" className="p-6 hover:shadow-xl transition-all duration-300">
+              <Card className="p-6 hover:shadow-xl transition-all duration-300 bg-white border border-gray-100">
                 <div className="flex items-center justify-between mb-4">
                   <div className={`p-3 rounded-xl bg-gradient-to-r ${stat.color} shadow-lg`}>
                     <stat.icon className="h-6 w-6 text-white" />
@@ -229,20 +229,18 @@ const DashboardPage = () => {
                 </div>
                 
                 <div className="space-y-1">
-                  <h3 className="text-3xl font-bold text-gray-900">{stat.value}</h3>
-                  <p className="text-gray-600 font-medium">{stat.title}</p>
-                  <p className="text-sm text-gray-500">{stat.description}</p>
-                  <p className="text-xs text-gray-400">{stat.changeValue}</p>
+                  <h3 className="text-3xl font-bold text-slate-900">{stat.value}</h3>
+                  <p className="text-slate-700 font-medium">{stat.title}</p>
+                  <p className="text-sm text-slate-600">{stat.description}</p>
+                  <p className="text-xs text-slate-500">{stat.changeValue}</p>
                 </div>
-
-                {/* Animated background gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-r ${stat.color} opacity-0 hover:opacity-5 transition-opacity duration-300 pointer-events-none`} />
               </Card>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Main Content Grid */}
+        {/* Main Content Grid */
+        }
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Recent Activity */}
           <motion.div
@@ -251,13 +249,13 @@ const DashboardPage = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="lg:col-span-2"
           >
-            <Card className="p-6">
+            <Card className="p-6 bg-white border border-gray-100">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-gray-900 flex items-center space-x-2">
-                  <Activity className="h-6 w-6 text-blue-600" />
+                <h2 className="text-2xl font-bold text-slate-900 flex items-center space-x-2">
+                  <Activity className="h-6 w-6 text-primary-600" />
                   <span>Recent Activity</span>
                 </h2>
-                <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-700">
+                <Button variant="ghost" size="sm" className="text-primary-600 hover:text-primary-700">
                   View All
                   <ChevronRight className="w-4 h-4 ml-1" />
                 </Button>
@@ -273,14 +271,14 @@ const DashboardPage = () => {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.1 }}
-                        className="flex items-center space-x-4 p-4 rounded-xl hover:bg-gray-50 transition-colors duration-200 border border-gray-100"
+                        className="flex items-center space-x-4 p-4 rounded-xl hover:bg-gray-50 transition-colors duration-200 border border-gray-100 bg-white"
                       >
                         <div className={`p-2 rounded-lg bg-${activity.color}-100`}>
                           <Icon className={`w-5 h-5 text-${activity.color}-600`} />
                         </div>
                         <div className="flex-1">
-                          <p className="text-gray-900 font-medium">{activity.message}</p>
-                          <p className="text-gray-500 text-sm">{activity.time}</p>
+                          <p className="text-slate-900 font-medium">{activity.message}</p>
+                          <p className="text-slate-500 text-sm">{activity.time}</p>
                         </div>
                         {activity.severity === 'high' && (
                           <Badge variant="error" size="sm">High Priority</Badge>
@@ -301,8 +299,8 @@ const DashboardPage = () => {
             className="space-y-6"
           >
             {/* Quick Actions */}
-            <Card className="p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center space-x-2">
+            <Card className="p-6 bg-white border border-gray-100">
+              <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center space-x-2">
                 <Shield className="h-5 w-5 text-green-600" />
                 <span>Quick Actions</span>
               </h2>
@@ -319,7 +317,7 @@ const DashboardPage = () => {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="w-full justify-between"
+                  className="w-full justify-between border-gray-200"
                 >
                   <span>View Analytics</span>
                   <TrendingUp className="w-5 h-5" />
@@ -336,8 +334,8 @@ const DashboardPage = () => {
             </Card>
 
             {/* Risk Areas */}
-            <Card className="p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center space-x-2">
+            <Card className="p-6 bg-white border border-gray-100">
+              <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center space-x-2">
                 <AlertTriangle className="h-5 w-5 text-orange-600" />
                 <span>High Risk Areas</span>
               </h2>
@@ -349,10 +347,10 @@ const DashboardPage = () => {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="p-4 border border-gray-100 rounded-lg hover:shadow-md transition-shadow"
+                    className="p-4 border border-gray-100 rounded-lg hover:shadow-md transition-shadow bg-white"
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <h3 className="font-semibold text-gray-900">{area.name}</h3>
+                      <h3 className="font-semibold text-slate-900">{area.name}</h3>
                       <Badge 
                         variant={area.risk > 70 ? 'error' : area.risk > 40 ? 'warning' : 'success'}
                         size="sm"
@@ -367,7 +365,7 @@ const DashboardPage = () => {
                         variant={area.risk > 70 ? 'error' : area.risk > 40 ? 'warning' : 'success'}
                         size="sm"
                       />
-                      <div className="flex justify-between text-sm text-gray-600">
+                      <div className="flex justify-between text-sm text-slate-600">
                         <span>{area.cases} active cases</span>
                         <span>{area.population} population</span>
                       </div>
@@ -378,8 +376,8 @@ const DashboardPage = () => {
             </Card>
 
             {/* System Status */}
-            <Card className="p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center space-x-2">
+            <Card className="p-6 bg-white border border-gray-100">
+              <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center space-x-2">
                 <Activity className="h-5 w-5 text-green-600" />
                 <span>System Status</span>
               </h2>
@@ -393,7 +391,7 @@ const DashboardPage = () => {
                     transition={{ delay: index * 0.1 }}
                     className="flex items-center justify-between"
                   >
-                    <span className="text-gray-600">{item.name}</span>
+                    <span className="text-slate-600">{item.name}</span>
                     <Badge 
                       variant={item.color === 'green' ? 'success' : 'warning'}
                       size="sm"

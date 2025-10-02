@@ -11,16 +11,16 @@ module.exports = {
       },
       colors: {
         primary: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
+          50: '#eef2ff',
+          100: '#e0e7ff',
+          200: '#c7d2fe',
+          300: '#a5b4fc',
+          400: '#818cf8',
+          500: '#6366f1',
+          600: '#4f46e5',
+          700: '#4338ca',
+          800: '#3730a3',
+          900: '#312e81',
         },
         success: {
           50: '#ecfdf5',
@@ -131,8 +131,8 @@ module.exports = {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'mesh-1': 'radial-gradient(at 40% 20%, hsla(228,100%,74%,1) 0px, transparent 50%), radial-gradient(at 80% 0%, hsla(189,100%,56%,1) 0px, transparent 50%), radial-gradient(at 0% 50%, hsla(355,100%,93%,1) 0px, transparent 50%), radial-gradient(at 80% 50%, hsla(340,100%,76%,1) 0px, transparent 50%), radial-gradient(at 0% 100%, hsla(22,100%,77%,1) 0px, transparent 50%), radial-gradient(at 80% 100%, hsla(242,100%,70%,1) 0px, transparent 50%), radial-gradient(at 0% 0%, hsla(343,100%,76%,1) 0px, transparent 50%)',
-        'mesh-2': 'radial-gradient(at 11% 47%, hsla(247,88%,70%,1) 0px, transparent 50%), radial-gradient(at 87% 35%, hsla(221,88%,69%,1) 0px, transparent 50%), radial-gradient(at 35% 90%, hsla(197,90%,73%,1) 0px, transparent 50%), radial-gradient(at 99% 95%, hsla(343,90%,76%,1) 0px, transparent 50%), radial-gradient(at 14% 3%, hsla(40,89%,76%,1) 0px, transparent 50%), radial-gradient(at 9% 76%, hsla(286,87%,75%,1) 0px, transparent 50%), radial-gradient(at 54% 22%, hsla(13,89%,75%,1) 0px, transparent 50%)',
+        'mesh-1': 'radial-gradient(at 40% 20%, rgba(99,102,241,0.25) 0px, transparent 50%), radial-gradient(at 80% 0%, rgba(147,197,253,0.25) 0px, transparent 50%), radial-gradient(at 0% 50%, rgba(244,114,182,0.2) 0px, transparent 50%), radial-gradient(at 80% 50%, rgba(129,140,248,0.25) 0px, transparent 50%), radial-gradient(at 0% 100%, rgba(16,185,129,0.15) 0px, transparent 50%), radial-gradient(at 80% 100%, rgba(59,130,246,0.2) 0px, transparent 50%), radial-gradient(at 0% 0%, rgba(236,72,153,0.2) 0px, transparent 50%)',
+        'mesh-2': 'radial-gradient(at 11% 47%, rgba(99,102,241,0.25) 0px, transparent 50%), radial-gradient(at 87% 35%, rgba(59,130,246,0.25) 0px, transparent 50%), radial-gradient(at 35% 90%, rgba(45,212,191,0.2) 0px, transparent 50%), radial-gradient(at 99% 95%, rgba(236,72,153,0.2) 0px, transparent 50%), radial-gradient(at 14% 3%, rgba(250,204,21,0.2) 0px, transparent 50%), radial-gradient(at 9% 76%, rgba(168,85,247,0.25) 0px, transparent 50%), radial-gradient(at 54% 22%, rgba(244,114,182,0.25) 0px, transparent 50%)',
       },
       backgroundSize: {
         '300%': '300%',

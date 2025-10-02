@@ -13,7 +13,7 @@ import {
   Shield,
   Sparkles
 } from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
+// Legacy page replaced by Clerk SignInPage; keep a redirect hint
 import { Input, Button, Card } from '../components/ui';
 import LoadingSpinner from '../components/LoadingSpinner';
 
@@ -26,7 +26,7 @@ const LoginPage = () => {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   
-  const { login, error } = useAuth();
+  const error = null;
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -120,9 +120,7 @@ const LoginPage = () => {
           <h2 className="text-3xl font-bold text-white mb-2">
             Welcome Back
           </h2>
-          <p className="text-gray-400">
-            Sign in to your SafeSip account to continue
-          </p>
+          <p className="text-gray-400">Please use the new sign-in page.</p>
         </div>
 
         {/* Login Form */}
@@ -143,7 +141,7 @@ const LoginPage = () => {
             </motion.div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={(e) => { e.preventDefault(); window.location.href = '/sign-in'; }} className="space-y-6">
             {/* Email Field */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
@@ -204,7 +202,7 @@ const LoginPage = () => {
               {isLoading ? (
                 <LoadingSpinner size="sm" text="" />
               ) : (
-                <span>Sign In</span>
+                <span>Go to Sign In</span>
               )}
             </button>
           </form>
@@ -236,12 +234,7 @@ const LoginPage = () => {
 
         {/* Footer */}
         <div className="text-center">
-          <p className="text-gray-400 text-sm">
-            Don't have an account?{' '}
-            <Link to="/register" className="text-primary-400 hover:text-primary-300 font-medium">
-              Contact Administrator
-            </Link>
-          </p>
+            <p className="text-gray-400 text-sm">Use the new pages: <Link to="/sign-in" className="text-primary-400 hover:text-primary-300 font-medium">Sign in</Link> or <Link to="/sign-up" className="text-primary-400 hover:text-primary-300 font-medium">Create account</Link>.</p>
         </div>
       </motion.div>
     </div>

@@ -1,5 +1,8 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { SignedIn, SignedOut, RedirectToSignIn, useUser } from '@clerk/clerk-react';
+import SignInPage from './pages/SignInPage';
+import SignUpPage from './pages/SignUpPage';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Import pages
@@ -24,6 +27,12 @@ import LoadingSpinner from './components/LoadingSpinner';
 import { AuthProvider } from './context/AuthContext';
 import { DataProvider } from './context/DataContext';
 
+function ProtectedRoute({ children }) {
+  const { isSignedIn } = useUser();
+  if (isSignedIn === undefined) return null;
+  return isSignedIn ? children : <Navigate to="/sign-in" replace />;
+}
+
 function App() {
   return (
     <AuthProvider>
@@ -37,13 +46,15 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/new" element={<LandingEventPage />} />
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/dashboard" element={<DashboardPage />} />
-                <Route path="/asha-dashboard" element={<ASHADashboard />} />
-                <Route path="/phc-dashboard" element={<PHCDashboard />} />
-                <Route path="/health-dashboard" element={<HealthDashboard />} />
+                <Route path="/sign-in" element={<SignInPage />} />
+                <Route path="/sign-up" element={<SignUpPage />} />
+                <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute>} />
+                <Route path="/asha-dashboard" element={<ProtectedRoute><ASHADashboard /></ProtectedRoute>} />
+                <Route path="/phc-dashboard" element={<ProtectedRoute><PHCDashboard /></ProtectedRoute>} />
+                <Route path="/health-dashboard" element={<ProtectedRoute><HealthDashboard /></ProtectedRoute>} />
                 <Route path="/workflow" element={<WorkflowPage />} />
-                <Route path="/analytics" element={<AnalyticsPage />} />
-                <Route path="/reports" element={<ReportsPage />} />
+                <Route path="/analytics" element={<ProtectedRoute><AnalyticsPage /></ProtectedRoute>} />
+                <Route path="/reports" element={<ProtectedRoute><ReportsPage /></ProtectedRoute>} />
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>
             </AnimatePresence>

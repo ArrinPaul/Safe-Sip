@@ -4,6 +4,14 @@ const apiService = require('../utils/apiService');
 const mlService = require('../utils/mlService');
 const logger = require('../utils/logger');
 
+// Require auth for protected API routes
+router.use((req, res, next) => {
+    if (!req.auth || !req.auth.userId) {
+        return res.status(401).json({ success: false, message: 'Unauthorized' });
+    }
+    next();
+});
+
 // Real-time data endpoint
 router.get('/realtime-data', async (req, res) => {
     try {

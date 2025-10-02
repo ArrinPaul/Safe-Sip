@@ -9,6 +9,7 @@ const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
+const { ClerkExpressWithAuth } = require('@clerk/clerk-sdk-node');
 const morgan = require('morgan');
 const http = require('http');
 const socketIo = require('socket.io');
@@ -194,6 +195,8 @@ app.use('/auth/', createRateLimit(600000, 3)); // 3 requests per 10 minutes
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
+// Clerk auth middleware attaches req.auth with userId/sessionId
+app.use(ClerkExpressWithAuth());
 
 // Logging middleware
 const logFormat = NODE_ENV === 'production' ? 'combined' : 'dev';
