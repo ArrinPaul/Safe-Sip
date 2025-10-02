@@ -1,29 +1,29 @@
-# 🌊 SafeSip - AI-Powered Water Safety Intelligence Platform
+#  SafeSip - AI-Powered Water Safety Intelligence Platform
 
-## 🌊 Overview
+## Overview
 
 SafeSip is a comprehensive waterborne disease management system that leverages artificial intelligence, real-time monitoring, and community health networks to predict, prevent, and respond to waterborne disease outbreaks in rural communities across India.
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-username/safesip)
 
-## ✨ Key Features
+##  Key Features
 
-### 🤖 AI-Powered Predictions
+### AI-Powered Predictions
 - **Machine Learning Models**: Advanced algorithms analyze water quality, weather patterns, and health data
 - **Outbreak Prediction**: 94.2% accuracy in predicting disease outbreaks 72 hours in advance
 - **Risk Assessment**: Real-time risk scoring for villages and regions
 
-### 📊 Real-Time Monitoring
+###  Real-Time Monitoring
 - **Live Dashboards**: WebSocket-powered real-time data updates
 - **Instant Alerts**: Automated notifications for health emergencies
 - **Geographic Mapping**: Interactive maps showing disease clusters and risk zones
 
-### 🏥 Community Health Network
+###  Community Health Network
 - **ASHA Worker Interface**: Mobile-friendly tools for community health workers
 - **PHC Integration**: Primary Health Center dashboard and workflow management
 - **Health Official Portal**: Regional monitoring and policy decision support
 
-### � Enterprise Security
+###  Enterprise Security
 - **JWT Authentication**: Secure token-based authentication system
 - **Role-Based Access**: Multi-level user permissions and access control
 - **Data Encryption**: End-to-end encryption for sensitive health data
@@ -39,7 +39,7 @@ SafeSip is a comprehensive waterborne disease management system that leverages a
 
 
 
-## 💰 Cost: $0/month## 🛠️ Technology Stack
+##  Technology Stack
 
 
 
@@ -48,7 +48,7 @@ SafeSip is a comprehensive waterborne disease management system that leverages a
 - **Disease.sh Health API**: 100% FREE (unlimited)- **Node.js**: Server runtime
 
 - **Google Gemini API**: FREE tier (1,500 requests/day)- **Express.js**: Web framework
-## 🚀 Technology Stack
+##  Technology Stack
 
 ### Backend
 - **Runtime**: Node.js 18+ with Express.js
@@ -77,7 +77,7 @@ SafeSip is a comprehensive waterborne disease management system that leverages a
 - **CI/CD**: GitHub Actions for automated testing and deployment
 - **Monitoring**: Application performance monitoring and logging
 
-## 📋 Prerequisites
+##  Prerequisites
 
 - **Node.js**: Version 18.0 or higher
 - **Docker**: Version 20.0 or higher
@@ -85,7 +85,7 @@ SafeSip is a comprehensive waterborne disease management system that leverages a
 - **PostgreSQL**: Version 14 or higher
 - **Redis**: Version 6.0 or higher
 
-## 🛠️ Installation & Setup
+##  Installation & Setup
 
 ### 1. Clone Repository
 ```bash
@@ -147,7 +147,7 @@ SESSION_SECRET=your_secure_session_secret_here
 
 ### 4. Start Application   npm install
 
-## 🐳 Docker Deployment
+##  Docker Deployment
 
 ### Development Environment
 ```bash
@@ -167,7 +167,7 @@ docker-compose up -d
 docker-compose logs -f safesip-app
 ```
 
-## 🚀 Production Deployment
+##  Production Deployment
 
 ### 1. Server Requirements
 - **CPU**: 2+ cores
@@ -219,7 +219,7 @@ docker-compose -f docker-compose.yml up -d
 | Health Official | health@safesip.com | health123 |
 | PHC Staff | phc@safesip.com | phc123 |
 
-## 🔧 Available Scripts
+##  Available Scripts
 
 ### Backend Scripts
 ```bash
@@ -245,7 +245,7 @@ npm run storybook      # Start Storybook
 npm run lint           # Run ESLint
 ```
 
-## 📊 API Documentation
+##  API Documentation
 
 ### Authentication Endpoints
 ```
@@ -274,7 +274,7 @@ case-update             # Case status changes
 prediction-update       # New ML predictions
 ```
 
-## 🎨 UI Components
+##  UI Components
 
 ### Design System
 - **Color Palette**: Blue-focused with accessibility in mind
@@ -301,7 +301,7 @@ import {
 <Card variant="glass" hover>Card content</Card>
 ```
 
-## 🧪 Testing
+##  Testing
 
 ### Unit Tests
 ```bash
@@ -322,7 +322,7 @@ npm run lighthouse       # Lighthouse audit
 npm run bundle-analyzer  # Bundle size analysis
 ```
 
-## 📈 Monitoring & Analytics
+##  Monitoring & Analytics
 
 ### Application Metrics
 - **Response Time**: Average API response times
@@ -336,7 +336,7 @@ npm run bundle-analyzer  # Bundle size analysis
 - **Cache Performance**: Redis hit/miss ratios
 - **Security Events**: Authentication and access logs
 
-## 🔐 Security Features
+## Security Features
 
 ### Data Protection
 - **Encryption**: AES-256 encryption for sensitive data
@@ -350,7 +350,7 @@ npm run bundle-analyzer  # Bundle size analysis
 - **CORS Configuration**: Cross-origin request policies
 - **Security Headers**: Comprehensive HTTP security headers
 
-## 🌍 Deployment Environments
+## Deployment Environments
 
 ### Development
 - **URL**: http://localhost:3000
@@ -367,7 +367,7 @@ npm run bundle-analyzer  # Bundle size analysis
 - **Database**: Production PostgreSQL with backups
 - **Features**: Full security, monitoring, and performance optimization
 
-## 📱 Mobile Responsiveness
+##  Mobile Responsiveness
 
 ### Breakpoints
 - **Mobile**: 320px - 768px
@@ -379,7 +379,7 @@ npm run bundle-analyzer  # Bundle size analysis
 - **Offline Support**: Service worker for offline functionality
 - **Progressive Web App**: PWA capabilities with app-like experience
 
-## 📊 Next Steps to Implement
+##  Next Steps to Implement
 
 ### Phase 1: Real API Integration (High Priority)
 1. **Obtain Real API Keys**
@@ -397,7 +397,7 @@ npm run bundle-analyzer  # Bundle size analysis
    - Train models with real historical data
    - Implement model versioning
    - Add continuous learning capabilities
-## 🤝 Contributing
+##  Contributing
 
 ### Development Workflow
 1. Fork the repository
@@ -413,25 +413,25 @@ npm run bundle-analyzer  # Bundle size analysis
 - **TypeScript**: Type safety (where applicable)
 - **Documentation**: Comprehensive code comments
 
-## 📄 License
+##  License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - **Ministry of Health & Family Welfare**: For healthcare guidelines
 - **ASHA Workers**: For valuable field insights
 - **Open Source Community**: For excellent libraries and tools
 - **Healthcare Professionals**: For domain expertise and feedback
 
-## 📞 Support & Contact
+##  Support & Contact
 
 - **Email**: support@safesip.com
 - **Documentation**: https://docs.safesip.com
 - **Issues**: https://github.com/your-org/safesip/issues
 - **Community**: https://community.safesip.com
 
-## �️ Roadmap
+##  Roadmap
 
 ### Q1 2024
 - [ ] Mobile app for ASHA workers
@@ -466,11 +466,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Add comments for complex logic
 - Write tests for new features
 
-## 📄 License
+##  License
 
 This project is licensed under the MIT License.
 
-## 🆘 Support
+## Support
 
 For support and questions:
 - Check the API documentation: `http://localhost:3000/api/docs`
@@ -479,6 +479,6 @@ For support and questions:
 
 ---
 
-**Built with ❤️ for SIH 2024 - Smart India Hackathon**
+
 
 *SafeSip - Protecting communities through intelligent waterborne disease management*
